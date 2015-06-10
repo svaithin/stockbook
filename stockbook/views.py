@@ -92,7 +92,7 @@ def user_login(request):
             if user.is_active:
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
-                login(request, user)
+                login(request, user)                
                 return HttpResponseRedirect('/index/')
             else:
                 # An inactive account was used - no logging in!
@@ -113,6 +113,9 @@ def user_login(request):
 
 def index(request):
     context = RequestContext(request)
+    if hasattr(request , 'user'):
+        user_name = request.user.username
+    user_holding = Holding.objects.get(Customer = user_name)
     return render_to_response('index.html',{},context)    
 
 @login_required
