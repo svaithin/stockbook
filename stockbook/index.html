@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>StockBook</title>
+    </head>
+
+    <body>
+        {% if user.is_authenticated %}
+            <h1>Welcome to StockBook {{ user.username }} </h1>
+                We are Under construction. Will notify you once the site is updated.
+                 <a href="/logout/">Logout</a><br />
+         {% else %}
+                  Please <a href="/login/">Login</a><br />
+         {%endif%}
+     </body>
+</html> 
+            
