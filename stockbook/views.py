@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from stockbook.forms import UserForm, UserProfileForm
-
+from stockbook.models import Holding, UserProfile, Stocks
 def register(request):
     # Like before, get the request's context.
     context = RequestContext(request)
@@ -114,10 +114,10 @@ def user_login(request):
 def index(request):
     context = RequestContext(request)
     if hasattr(request , 'user'):
-        user_name = request.user.username
-    user_holding = Holding.objects.get(Customer = user_name)
-    return render_to_response('index.html',{},context)    
-
+        user_id = request.user.id
+        user_holding = Holding.objects.get(id = user_id)
+        return render_to_response('index.html',{},context,user_holding)    
+    return render_to_response('index.html',{})
 @login_required
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
